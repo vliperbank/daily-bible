@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Bible Quote</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            margin: 0;
+        }
+        h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        .quote-box {
+            background-color: black;
+            color: white;
+            padding: 50px;
+            border-radius: 20px;
+            width: 70%;
+            max-width: 600px;
+        }
+        .quote {
+            font-size: 20px; /* Increased font size */
+            
+        }
+        .passage {
+            font-size: 18px; /* Increased passage size */
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pentru Azi.</h1>
+    <div class="quote-box">
+        <p id="quote" class="quote"></p>
+        <p class="passage" id="passage"></p>
+    </div>
+
+    <script>
+        const quotes = [
+    { "text": "Pot totul în Hristos care mă întărește.", "passage": "Filipeni 4:13" },
+    { "text": "Încrede-te în Domnul din toată inima ta și nu te sprijini pe înțelegerea ta.", "passage": "Proverbe 3:5" },
+    { "text": "Domnul este păstorul meu; nu voi duce lipsă de nimic.", "passage": "Psalm 23:1" },
+    { "text": "Căci atât de mult a iubit Dumnezeu lumea, încât a dat pe Fiul Său cel Unic, ca oricine crede în El să nu piară, ci să aibă viață veșnică.", "passage": "Ioan 3:16" },
+    { "text": "Fii tare și curajos. Nu te teme și nu te spăimânta, căci Domnul, Dumnezeul tău, va fi cu tine oriunde vei merge.", "passage": "Iosua 1:9" },
+    { "text": "Domnul este lumina și mântuirea mea; de cine să mă tem?", "passage": "Psalm 27:1" },
+    { "text": "Eu sunt calea, adevărul și viața. Nimeni nu vine la Tatăl decât prin Mine.", "passage": "Ioan 14:6" },
+    { "text": "Căci Eu știu gândurile pe care le am față de voi, zice Domnul, gânduri de pace și nu de nenorocire, ca să vă dau un viitor și o speranță.", "passage": "Ieremia 29:11" },
+    { "text": "Aruncați asupra Lui toată îngrijorarea voastră, căci El are grijă de voi.", "passage": "1 Petru 5:7" },
+    { "text": "Domnul este aproape de toți cei ce-L cheamă, de toți cei ce-L cheamă dintr-o inimă curată.", "passage": "Psalm 145:18" },
+    { "text": "Nu te teme, căci Eu sunt cu tine; nu te spăimânta, căci Eu sunt Dumnezeul tău.", "passage": "Isaia 41:10" },
+    { "text": "Știm însă că toate lucrurile lucrează împreună spre binele celor ce-L iubesc pe Dumnezeu, celor ce sunt chemați după planul Său.", "passage": "Romani 8:28" },
+    { "text": "Mângâierea ta să fie în Domnul, căci El îți dă tot ce ai nevoie.", "passage": "Psalm 37:4" },
+    { "text": "În toate lucrurile îți voi răspunde, căci Eu sunt Domnul Dumnezeul tău, care te întărește.", "passage": "Isaia 41:13" },
+    { "text": "De vei umbla în întuneric, nu te vei teme, căci Eu sunt cu tine.", "passage": "Isaia 43:2" },
+    { "text": "Domnul să te binecuvânteze și să te păzească!", "passage": "Numeri 6:24" },
+    { "text": "Căci prin har suntem mântuiți, prin credință, și aceasta nu vine de la voi, ci este darul lui Dumnezeu.", "passage": "Efeseni 2:8" },
+    { "text": "Fiți tari și neclintiți, căci în Domnul este biruința voastră.", "passage": "1 Corinteni 15:58" },
+    { "text": "Domnul va fi mereu pentru tine, un ajutor puternic în timp de nevoie.", "passage": "Psalm 46:1" },
+    { "text": "Pacea Mea vă dau, nu cum o dă lumea. Nu vă tulburați inimile și nu vă înspăimântați.", "passage": "Ioan 14:27" },
+    { "text": "Cu Domnul sunt multe binecuvântări și El dă putere celor slabi.", "passage": "Psalm 68:35" },
+    { "text": "Binecuvântat să fie Domnul, care zilnic ne poartă poverile.", "passage": "Psalm 68:19" },
+    { "text": "Și în toate acestea suntem mai mult decât biruitori prin Cel ce ne-a iubit.", "passage": "Romani 8:37" },
+    { "text": "Domnul este cu mine ca un războinic puternic; de aceea cei ce mă prigonesc vor cădea.", "passage": "Ieremia 20:11" },
+    { "text": "Dar cei ce se încred în Domnul vor căpăta o putere nouă; vor zbura ca vulturii, vor alerga și nu se vor obosi, vor umbla și nu vor slăbi.", "passage": "Isaia 40:31" },
+    { "text": "Dumnezeu este adăpostul și tăria noastră, ajutorul care se află totdeauna la îndemână în necazuri.", "passage": "Psalm 46:1" },
+    { "text": "În orice timp, Domnul va fi pentru tine un ajutor puternic.", "passage": "Isaia 41:10" },
+    { "text": "Dacă Dumnezeu este pentru noi, cine poate fi împotriva noastră?", "passage": "Romani 8:31" },
+    { "text": "Ferice de cei ce plâng, căci ei vor fi mângâiați.", "passage": "Matei 5:4" },
+    { "text": "Iată, Eu sunt cu voi în toate zilele, până la sfârșitul lumii.", "passage": "Matei 28:20" },
+    { "text": "Nu vă temeți de cei ce omoară trupul, dar nu pot omorî sufletul.", "passage": "Matei 10:28" },
+    { "text": "Domnul este aproape de cei drepți și le salvează sufletele.", "passage": "Psalm 34:18" },
+    { "text": "Eu sunt ușa; dacă intră cineva prin Mine, va fi mântuit.", "passage": "Ioan 10:9" },
+    { "text": "Căci unde este comoara ta, acolo va fi și inima ta.", "passage": "Matei 6:21" },
+    { "text": "Cine cere, primește; cine caută, găsește; și celui ce bate, i se va deschide.", "passage": "Matei 7:8" },
+    { "text": "Dumnezeu este iubire, și cine rămâne în iubire rămâne în Dumnezeu și Dumnezeu rămâne în el.", "passage": "1 Ioan 4:16" },
+    { "text": "Domnul este înălțat pe tronul Său, de acolo El privește asupra tuturor oamenilor.", "passage": "Psalm 11:4" },
+    { "text": "Nu te teme, căci Eu am răscumpărat pe tine, te-am chemat pe nume, tu ești al Meu.", "passage": "Isaia 43:1" },
+    { "text": "Căci Dumnezeu nu ne-a dat un duh de frică, ci de putere, de dragoste și de înțelepciune.", "passage": "2 Timotei 1:7" },
+    { "text": "Iar Eu am venit ca oile să aibă viață și să o aibă din belșug.", "passage": "Ioan 10:10" },
+    { "text": "Domnul este bun pentru toți și îndurarea Lui este peste toate lucrurile Sale.", "passage": "Psalm 145:9" },
+    { "text": "Eu am fost un tânăr și am îmbătrânit, dar n-am văzut pe nimeni care să părăsească pe Domnul.", "passage": "Psalm 37:25" },
+    { "text": "Fiți cu toții cu un suflet curat, fiind gata să faceți fapte bune.", "passage": "1 Petru 3:8" },
+    { "text": "Căci Domnul cunoaște calea celor drepți.", "passage": "Psalm 1:6" },
+    { "text": "Și darul lui Dumnezeu este viața veșnică în Hristos Isus, Domnul nostru.", "passage": "Romani 6:23" },
+    { "text": "Darul lui Dumnezeu este mântuirea și pacea prin Hristos.", "passage": "Romani 5:1" },
+    { "text": "Să nu vă îngrijorați de nimic, ci în orice lucru, prin rugăciune și cerere, cu mulțumire, să faceți cunoscut lui Dumnezeu dorințele voastre.", "passage": "Filipeni 4:6" },
+    { "text": "Eu sunt Lumina lumii. Cine mă urmează nu va umbla în întuneric.", "passage": "Ioan 8:12" },
+    { "text": "Fiți tari și curajoși, nu vă temeți și nu vă spăimântați.", "passage": "Deuteronom 31:6" },
+    { "text": "Vă las pacea; vă dau pacea Mea.", "passage": "Ioan 14:27" },
+    { "text": "Căci Dumnezeu nu este un Dumnezeu de dezbinare, ci de pace.", "passage": "1 Corinteni 14:33" }
+]
+
+
+        // Select a random quote
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        document.getElementById("quote").innerText = `"${randomQuote.text}"`;
+        document.getElementById("passage").innerText = `- ${randomQuote.passage}`;
+    </script>
+</body>
+</html>
